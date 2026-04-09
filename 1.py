@@ -15,7 +15,7 @@ main_folder = os.path.join(fps_folder, "MAIN")
 mod_folder = os.path.join(fps_folder, "MOD")
 
 dat_file = os.path.join(fps_folder, "Client120FPSMapping.uexp")
-pak_file = os.path.join(fps_folder, "game_patch_4.3.0.20967.pak")
+pak_file = os.path.join(fps_folder, "game_patch_4.3.0.20980.pak")
 
 processing_queue = asyncio.Queue()
 
@@ -23,7 +23,7 @@ processing_queue = asyncio.Queue()
 # 🔹 Modify + Repack
 def modify_file(model_number: str):
     dat_file_main = os.path.join(main_folder, "Client120FPSMapping.uexp")
-    pak_file_main = os.path.join(main_folder, "game_patch_4.3.0.20967.pak")
+    pak_file_main = os.path.join(main_folder, "game_patch_4.3.0.20980.pak")
 
     if not os.path.exists(dat_file):
         return "Error: DAT file missing!"
@@ -73,14 +73,14 @@ def modify_file(model_number: str):
         return f"Error: Repack exception - {str(e)}"
 
     # Move to MOD
-    final_pak = os.path.join(mod_folder, "game_patch_4.3.0.20967.pak")
+    final_pak = os.path.join(mod_folder, "game_patch_4.3.0.20980.pak")
     shutil.copy(pak_file_main, final_pak)
 
     # ZIP
     zip_path = os.path.join(mod_folder, f"BlackGamerOG{model_number}.zip")
 
     with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as zipf:
-        zipf.write(final_pak, "game_patch_4.3.0.20967.pak")
+        zipf.write(final_pak, "game_patch_4.3.0.20980.pak")
 
     # Delete PAK from MOD folder (keep only ZIP)
     os.remove(final_pak)
@@ -112,7 +112,7 @@ async def modify(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     model = context.args[0]
 
-    zip_path = os.path.join(mod_folder, f"FridayXT{model}.zip")
+    zip_path = os.path.join(mod_folder, f"BlackGamerOG {model}.zip")
 
     if os.path.exists(zip_path):
         try:
